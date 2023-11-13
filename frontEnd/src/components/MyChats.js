@@ -34,7 +34,7 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       // Make API request to get user's chats
-      const { data } = await axios.get("https://talk-scape-m6kt.onrender.com/api/chats/", config);
+      const { data } = await axios.get("https://talk-scape-m6kt.onrender.com/api/chats", config);
       setChats(data);
     } catch (error) {
       // Show error toast if fetching chats fails
@@ -124,10 +124,11 @@ const MyChats = ({ fetchAgain }) => {
                     : chat.chatName}
                 </Text>
                 <Text>
+                  {console.log(chat)}
                   {!chat.isGroupChat
                 
                     ? (chat.latestMessage?`${getSender(loggedUser, chat.users) }:${chat.latestMessage.content}`:"")
-                    :(chat.latestMessage? `${chat.chatName}:${chat.lastMessage.content}`:"")
+                    :(chat.latestMessage? `${chat.latestMessage.sender.name}:${chat.latestMessage.content}`:"")
                   }
                 </Text>
               
