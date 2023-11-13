@@ -73,6 +73,7 @@ const GroupChatModal = ({ children }) => {
       // Fetching user data based on the search query
       const { data } = await axios.get(`
 https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
+setLoading(false);
       if (data.data == "Not found") {
         toast({
           title: "No user Found!",
@@ -84,7 +85,7 @@ https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
         });
         return;
       }
-      setLoading(false);
+      
       setSearchResult(data.data);
     } catch (error) {
       // Displaying an error toast if search fails
