@@ -56,7 +56,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        `https://talk-scape-m6kt.onrender.com/api/messages/${selectedChat._id}`,
+        `
+https://talk-scape-m6kt.onrender.com/api/messages/${selectedChat._id}`,
         config
       );
       setMessages(data);

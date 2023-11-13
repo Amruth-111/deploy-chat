@@ -81,8 +81,19 @@ const SideDrawer = () => {
             };
 
             // Make API request to search users
-            const { data } = await axios.get(`https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
+            const { data } = await axios.get(`
+https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
             setLoading(false);
+            if (data.data === "Not found") {
+                toast({
+                    title: "No user Found!",
+                    description: "no user found with this name",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                    position: "top-left",
+                });
+            }
             setSearchResult(data.data);
         } catch (error) {
             // Show error toast if search request fails
@@ -111,7 +122,8 @@ const SideDrawer = () => {
             };
 
             // Make API request to create a new chat
-            const { data } = await axios.post(`https://talk-scape-m6kt.onrender.com/api/chats/`, { userId }, config);
+            const { data } = await axios.post(`
+https://talk-scape-m6kt.onrender.com/api/chats/`, { userId }, config);
 
             // Update chats state if the chat is not already present
             if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
@@ -164,37 +176,37 @@ const SideDrawer = () => {
                     TextScape
                 </Text>
                 <div>
-                <Menu>
-                    <MenuButton p={1}>
-                        <NotificationBadge
-                            count={notification.length}
-                            effect={Effect.SCALE}
-                        />
-                        <BellIcon fontSize="2xl" m={1} />
-                    </MenuButton>
-                    <MenuList pl={2}>
-                        {!notification.length && "No New Messages"}
-                       { console.log(notification)}
-                        {notification.map((notif) => (
-                            
-                            <MenuItem
-                                key={notif._id}
-                                onClick={() => {
-                                    setSelectedChat(notif.chat);
-                                    
-                                    setNotification(notification.filter((n) => n.sender._id !== notif.sender._id));
-                                    console.log(notification)
-                                }}
-                            >
-                                {notif.chat.isGroupChat
-                                    ? `New Message in ${notif.chat.chatName}`
-                                    : `New Message from ${getSender(user, notif.chat.users)}`}
-                            </MenuItem>
-                        ))}
-                    </MenuList>
-                </Menu>
-                {/* User menu */}
-{/*                 
+                    <Menu>
+                        <MenuButton p={1}>
+                            <NotificationBadge
+                                count={notification.length}
+                                effect={Effect.SCALE}
+                            />
+                            <BellIcon fontSize="2xl" m={1} />
+                        </MenuButton>
+                        <MenuList pl={2}>
+                            {!notification.length && "No New Messages"}
+                            {console.log(notification)}
+                            {notification.map((notif) => (
+
+                                <MenuItem
+                                    key={notif._id}
+                                    onClick={() => {
+                                        setSelectedChat(notif.chat);
+
+                                        setNotification(notification.filter((n) => n.sender._id !== notif.sender._id));
+                                        console.log(notification)
+                                    }}
+                                >
+                                    {notif.chat.isGroupChat
+                                        ? `New Message in ${notif.chat.chatName}`
+                                        : `New Message from ${getSender(user, notif.chat.users)}`}
+                                </MenuItem>
+                            ))}
+                        </MenuList>
+                    </Menu>
+                    {/* User menu */}
+                    {/*                 
                     <Menu>
                         <MenuButton p={1}>
                             <BellIcon fontSize="2xl" m={1} />
