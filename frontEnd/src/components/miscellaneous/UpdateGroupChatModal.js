@@ -274,8 +274,9 @@ https://talk-scape-m6kt.onrender.com/api/chats/groupremove`,
               {selectedChat.users.map((u) => (
                 <UserBadgeItem
                   key={u._id}
-                  user={u}
+                  user1={u}
                   admin={selectedChat.groupAdmin._id}
+                  user={user}
                   handleFunction={() => handleRemove(u)}
                 />
               ))}

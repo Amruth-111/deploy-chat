@@ -237,5 +237,6 @@ https://talk-scape-m6kt.onrender.com/api/chats/group`,
   );
 };
 
+
 // Exporting the component as the default export
 export default GroupChatModal;
