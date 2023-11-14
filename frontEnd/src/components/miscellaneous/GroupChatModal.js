@@ -34,7 +34,7 @@ const GroupChatModal = ({ children }) => {
   const toast = useToast();
 
   // Extracting user and chat information from context
-  const { user, chats, setChats } = ChatState();
+  const { user, chats, setChats} = ChatState();
 
   // Function to handle adding users to the selected list
   const handleGroup = (userToAdd) => {
@@ -74,7 +74,7 @@ const GroupChatModal = ({ children }) => {
       const { data } = await axios.get(`
 https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
 setLoading(false);
-      if (data.data == "Not found") {
+      if (data.data === "Not found") {
         toast({
           title: "No user Found!",
           description: "no user found with this name",

@@ -10,7 +10,7 @@ import {
 import { ChatState } from "../context/ChatProvider";
 
 const ScrollableChat = ({ messages }) => {
-  const { user } = ChatState();
+  const { user,selectedChat } = ChatState();
 
   return (
     <ScrollableFeed>
@@ -19,6 +19,7 @@ const ScrollableChat = ({ messages }) => {
           <div style={{ display: "flex" }} key={m._id}>
             {(isSameSender(messages, m, i, user._id) ||
               isLastMessage(messages, i, user._id)) && (
+             
               <Tooltip label={m.sender.name} placement="bottom-start" hasArrow>
                 <Avatar
                   mt="7px"
@@ -28,8 +29,10 @@ const ScrollableChat = ({ messages }) => {
                   name={m.sender.name}
                   src={m.sender.pic}
                 />
-              </Tooltip>
+              </Tooltip> 
+          
             )}
+            
             <span
               style={{
                 backgroundColor: `${
@@ -40,10 +43,17 @@ const ScrollableChat = ({ messages }) => {
                 borderRadius: "20px",
                 padding: "5px 15px",
                 maxWidth: "75%",
+                display: "inline-block"
               }}
-            >
-              {m.content}
+            > 
+            {selectedChat.isGroupChat? (isSameSender(messages, m, i, user._id) ||
+              isLastMessage(messages, i, user._id)) && (
+                <div style={{color:"darkgreen", display: "inline-block",fontSize: "13px", border:"3px",borderRadius:'3px'}}>{m.sender.name}:</div>
+            )
+            :<></>}
+            <div>{m.content}</div>
             </span>
+            
           </div>
         ))}
     </ScrollableFeed>

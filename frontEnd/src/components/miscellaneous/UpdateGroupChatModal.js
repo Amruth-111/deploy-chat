@@ -27,6 +27,7 @@ import UserListItem from "./UserListItem";
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   // Chakra UI hooks for modal state
   const { isOpen, onOpen, onClose } = useDisclosure();
+ 
 
   // State variables for managing group chat updates
   const [groupChatName, setGroupChatName] = useState();
@@ -165,9 +166,9 @@ https://talk-scape-m6kt.onrender.com/api/chats/groupadd`,
       );
 
       // Updating the selected chat with the new data
+      setFetchAgain(!fetchAgain);
       setSelectedChat(data);
       // Triggering a fetch update
-      setFetchAgain(!fetchAgain);
       setLoading(false);
     } catch (error) {
       // Displaying an error toast if adding user fails
@@ -222,6 +223,8 @@ https://talk-scape-m6kt.onrender.com/api/chats/groupremove`,
       // If the user removes themselves, clear the selected chat
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data.data);
       // Triggering a fetch update
+      //socket remove
+
       setFetchAgain(!fetchAgain);
       setLoading(false);
       fetchMessages()
@@ -259,6 +262,7 @@ https://talk-scape-m6kt.onrender.com/api/chats/groupremove`,
             justifyContent="center"
           >
             {selectedChat.chatName}
+           
           </ModalHeader>
 
           {/* Modal close button */}
@@ -271,6 +275,7 @@ https://talk-scape-m6kt.onrender.com/api/chats/groupremove`,
                 <UserBadgeItem
                   key={u._id}
                   user={u}
+                  admin={selectedChat.groupAdmin._id}
                   handleFunction={() => handleRemove(u)}
                 />
               ))}

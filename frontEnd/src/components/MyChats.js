@@ -1,5 +1,5 @@
 // Import necessary modules and components
-import React from 'react';
+import React from "react";
 import { AddIcon } from "@chakra-ui/icons";
 import { Box, Stack, Text } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
@@ -9,7 +9,7 @@ import { getSender } from "../config/ChatLogics";
 import ChatLoading from "./ChatLoading";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
-import { ChatState } from '../context/ChatProvider'
+import { ChatState } from "../context/ChatProvider";
 
 // Functional component for displaying user's chats
 const MyChats = ({ fetchAgain }) => {
@@ -34,7 +34,10 @@ const MyChats = ({ fetchAgain }) => {
       };
 
       // Make API request to get user's chats
-      const { data } = await axios.get("https://talk-scape-m6kt.onrender.com/api/chats", config);
+      const { data } = await axios.get(
+        "https://talk-scape-m6kt.onrender.com/api/chats",
+        config
+      );
       setChats(data);
     } catch (error) {
       // Show error toast if fetching chats fails
@@ -118,20 +121,27 @@ const MyChats = ({ fetchAgain }) => {
                 key={chat._id}
               >
                 {/* Display chat information */}
-                <Text  as="span" fontWeight="bold">
+                <Text as="span" fontWeight="bold">
                   {!chat.isGroupChat
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Text>
                 <Text>
-                  {console.log(chat)}
+                  
                   {!chat.isGroupChat
-                
-                    ? (chat.latestMessage?`${getSender(loggedUser, chat.users) }:${chat.latestMessage.content}`:"")
-                    :(chat.latestMessage? `${chat.latestMessage.sender.name}:${chat.latestMessage.content}`:"")
-                  }
+                    ? chat.latestMessage
+                      ? chat.latestMessage.sender._id !== user._id
+                        ? `${getSender(loggedUser, chat.users)}:${
+                            chat.latestMessage.content
+                          }`
+                        : `Me:${chat.latestMessage.content}`
+                      : ""
+                    : chat.latestMessage
+                    ? chat.latestMessage.sender._id !== user._id
+                      ? `${chat.latestMessage.sender.name}:${chat.latestMessage.content}`
+                      : `Me:${chat.latestMessage.content}`
+                    : ""}
                 </Text>
-              
               </Box>
             ))}
           </Stack>

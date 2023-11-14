@@ -84,7 +84,7 @@ const SideDrawer = () => {
             const { data } = await axios.get(`
 https://talk-scape-m6kt.onrender.com/api/users?search=${search}`, config);
             setLoading(false);
-            if (data.data=="Not found") {
+            if (data.data==="Not found") {
                 toast({
                     title: "No user Found!",
                     description: "no user found with this name",
@@ -187,7 +187,7 @@ https://talk-scape-m6kt.onrender.com/api/chats/`, { userId }, config);
                         </MenuButton>
                         <MenuList pl={2}>
                             {!notification.length && "No New Messages"}
-                            {console.log(notification)}
+                          
                             {notification.map((notif) => (
 
                                 <MenuItem
@@ -196,7 +196,7 @@ https://talk-scape-m6kt.onrender.com/api/chats/`, { userId }, config);
                                         setSelectedChat(notif.chat);
 
                                         setNotification(notification.filter((n) => n.sender._id !== notif.sender._id));
-                                        console.log(notification)
+                                      
                                     }}
                                 >
                                     {notif.chat.isGroupChat
